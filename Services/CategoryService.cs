@@ -90,22 +90,22 @@ namespace BookTrackingApi.Services
             }
         }
 
-        public async Task<MainResponse> DeleteCategory(int id)
+        public async Task<MainResponse> DeleteCategory(int categoryId)
         {
             try
             {
-                var existingCategory = await _dbContext.Champagnes.Where(c => c.Id == champagneId).FirstOrDefaultAsync();
+                var existingCategory = await _dbContext.Categories.Where(c => c.Id == categoryId).FirstOrDefaultAsync();
 
                 if (existingCategory != null)
                 {
                     _dbContext.Remove(existingCategory);
                     await _dbContext.SaveChangesAsync();
 
-                    return new MainResponse { Message = "Champagne deleted successfully" };
+                    return new MainResponse { Message = "Category deleted successfully" };
                 }
                 else
                 {
-                    return new MainResponse { IsSuccess = false, Message = "Champagne not found with this Id" };
+                    return new MainResponse { IsSuccess = false, Message = "Category not found with this Id" };
                 }
             }
             catch (Exception ex)
