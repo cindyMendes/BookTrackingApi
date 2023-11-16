@@ -17,6 +17,27 @@ namespace BookTrackingApi.Services
 
 
 
+        public async Task<MainResponse> GetAllCategories()
+        {
+            try
+            {
+                List<Category> categories = await _dbContext.Categories.ToListAsync();
+
+                if (categories.Count == 0)
+                {
+                    return new MainResponse { Message = "No data found" };
+                }
+                else
+                {
+                    return new MainResponse { Content = categories, Message = "Categories retrieved successfully" };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new MainResponse { IsSuccess = false, Message = $"Error: {ex.Message}" };
+            }
+        }
+
         public async Task<MainResponse> AddCategory(AddCategoryDTO addCategory)
         {
             try
@@ -44,5 +65,56 @@ namespace BookTrackingApi.Services
                 return new MainResponse { IsSuccess = false, Message = $"Error: {ex.Message}" };
             }
         }
+
+        public async Task<MainResponse> UpdateCategory(UpdateCategoryDTO updateCategory)
+        {
+            try
+            {
+                var existingCategory = await _dbContext.Categories.Where(c => c.Id == updateCategory.Id).FirstOrDefaultAsync();
+
+                if (existingCategory != null)
+                {
+                    existingCategory.Name = updateCategory.Name;
+                    await _dbContext.SaveChangesAsync();
+
+                    return new MainResponse { Message = "Category updated successfully" };
+                }
+                else
+                {
+                    return new MainResponse { IsSuccess = false, Message = "Category not found with this Id" };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new MainResponse { IsSuccess = false, Message = $"Error: {ex.Message}" };
+            }
+        }
+
+        public async Task<MainResponse> DeleteCategory(int id)
+        {
+            try
+            {
+                var existingCategory = await _dbContext.Champagnes.Where(c => c.Id == champagneId).FirstOrDefaultAsync();
+
+                if (existingCategory != null)
+                {
+                    _dbContext.Remove(existingCategory);
+                    await _dbContext.SaveChangesAsync();
+
+                    return new MainResponse { Message = "Champagne deleted successfully" };
+                }
+                else
+                {
+                    return new MainResponse { IsSuccess = false, Message = "Champagne not found with this Id" };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new MainResponse { IsSuccess = false, Message = $"Error: {ex.Message}" };
+            }
+        }
+
+
+        
     }
 }
