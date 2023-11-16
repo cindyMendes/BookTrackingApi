@@ -9,6 +9,7 @@ var connectionString = builder.Configuration.GetConnectionString("ChampagneApi")
 builder.Services.AddDbContext<BookDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<INationalityService, NationalityService>();
 
 
 

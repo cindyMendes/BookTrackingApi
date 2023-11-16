@@ -1,4 +1,4 @@
-﻿using BookTrackingApi.DTOs.Category;
+﻿using BookTrackingApi.DTOs.Nationality;
 using BookTrackingApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,23 +7,23 @@ namespace BookTrackingApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class NationalityController : ControllerBase
     {
-        private readonly ICategoryService _categoryService;
+        private readonly INationalityService _nationalityService;
 
-        public CategoryController(ICategoryService categoryService)
+        public NationalityController(INationalityService nationalityService)
         {
-            _categoryService = categoryService;
+            _nationalityService = nationalityService;
         }
 
 
 
-        [HttpGet("GetAllCategories")]
-        public async Task<IActionResult> GetAllCategories()
+        [HttpGet("GetAllNationalities")]
+        public async Task<IActionResult> GetAllNationalities()
         {
             try
             {
-                var response = await _categoryService.GetAllCategories();
+                var response = await _nationalityService.GetAllNationalities();
                 return Ok(response);
             }
             catch (Exception ex)
@@ -32,12 +32,12 @@ namespace BookTrackingApi.Controllers
             }
         }
 
-        [HttpPost("AddCategory")]
-        public async Task<IActionResult> AddCategory([FromBody] AddCategoryDTO addCategory)
+        [HttpPost("AddNationality")]
+        public async Task<IActionResult> AddNationality([FromBody] AddNationalityDTO addNationality)
         {
             try
             {
-                var response = await _categoryService.AddCategory(addCategory);
+                var response = await _nationalityService.AddNationality(addNationality);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -46,14 +46,14 @@ namespace BookTrackingApi.Controllers
             }
         }
 
-        [HttpPut("UpdateCategory")]
-        public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryDTO updateCategory)
+        [HttpPut("UpdateNationality")]
+        public async Task<IActionResult> UpdateNationality([FromBody] UpdateNationalityDTO updateNationality)
         {
             try
             {
-                if (updateCategory.Id > 0)
+                if (updateNationality.Id > 0)
                 {
-                    var response = await _categoryService.UpdateCategory(updateCategory);
+                    var response = await _nationalityService.UpdateNationality(updateNationality);
                     return Ok(response);
                 }
                 else
@@ -67,14 +67,14 @@ namespace BookTrackingApi.Controllers
             }
         }
 
-        [HttpDelete("DeleteCategory/{categoryId}")]
-        public async Task<IActionResult> DeleteCategory(int categoryId)
+        [HttpDelete("DeleteNationality/{categoryId}")]
+        public async Task<IActionResult> DeleteNationality(int nationalityId)
         {
             try
             {
-                if (categoryId > 0)
+                if (nationalityId > 0)
                 {
-                    var response = await _categoryService.DeleteCategory(categoryId);
+                    var response = await _nationalityService.DeleteNationality(nationalityId);
                     return Ok(response);
                 }
                 else
