@@ -32,6 +32,20 @@ namespace BookTrackingApi.Controllers
             }
         }
 
+        [HttpGet("GetNationalityById")]
+        public async Task<IActionResult> GetNationalityById(int nationalityId)
+        {
+            try
+            {
+                var response = await _nationalityService.GetNationalityById(nationalityId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("AddNationality")]
         public async Task<IActionResult> AddNationality([FromBody] AddNationalityDTO addNationality)
         {

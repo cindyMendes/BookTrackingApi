@@ -6,6 +6,7 @@ namespace BookTrackingApi.Services
     public interface INationalityService
     {
         Task<MainResponse> GetAllNationalities();
+        Task<MainResponse> GetNationalityById(int nationalityId);
         Task<MainResponse> AddNationality(AddNationalityDTO addNationality);
         Task<MainResponse> UpdateNationality(UpdateNationalityDTO updateNationality);
         Task<MainResponse> DeleteNationality(int nationalalityId);

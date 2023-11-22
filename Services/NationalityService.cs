@@ -38,6 +38,27 @@ namespace BookTrackingApi.Services
             }
         }
 
+        public async Task<MainResponse> GetNationalityById(int nationalityId)
+        {
+            try
+            {
+                var nationality = await _dbContext.Nationalities.Where(n => n.Id == nationalityId).FirstOrDefaultAsync();
+
+                if (nationality != null)
+                {
+                    return new MainResponse { Content = nationality, Message = "Nationality retrieved successfully" };
+                }
+                else
+                {
+                    return new MainResponse { IsSuccess = false, Message = "No nationality with this Id" };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new MainResponse { IsSuccess = false, Message = $"Error: {ex.Message}" };
+            }
+        }
+
         public async Task<MainResponse> AddNationality(AddNationalityDTO addNationality)
         {
             try

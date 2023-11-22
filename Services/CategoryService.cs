@@ -38,6 +38,27 @@ namespace BookTrackingApi.Services
             }
         }
 
+        public async Task<MainResponse> GetCategoryById(int categoryId)
+        {
+            try
+            {
+                var category = await _dbContext.Categories.Where(c => c.Id == categoryId).FirstOrDefaultAsync();
+
+                if (category != null)
+                {
+                    return new MainResponse { Content = category, Message = "Category retrieved successfully" };
+                }
+                else
+                {
+                    return new MainResponse { IsSuccess = false, Message = "No category with this Id" };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new MainResponse { IsSuccess = false, Message = $"Error: {ex.Message}" };
+            }
+        }
+
         public async Task<MainResponse> AddCategory(AddCategoryDTO addCategory)
         {
             try

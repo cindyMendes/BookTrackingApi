@@ -32,6 +32,20 @@ namespace BookTrackingApi.Controllers
             }
         }
 
+        [HttpGet("GetCategoryById")]
+        public async Task<IActionResult> GetCategoryById(int categoryId)
+        {
+            try
+            {
+                var response = await _categoryService.GetCategoryById(categoryId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("AddCategory")]
         public async Task<IActionResult> AddCategory([FromBody] AddCategoryDTO addCategory)
         {
