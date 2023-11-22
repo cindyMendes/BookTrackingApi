@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 
-var connectionString = builder.Configuration.GetConnectionString("ChampagneApi");
+var connectionString = builder.Configuration.GetConnectionString("BookTrackingDB");
 builder.Services.AddDbContext<BookDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<INationalityService, NationalityService>();
+builder.Services.AddScoped<ISeriesService, SeriesService>();
 
 
 

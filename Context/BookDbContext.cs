@@ -19,6 +19,7 @@ public partial class BookDbContext : DbContext
 
     public DbSet<Category> Categories { get; set; }
     public DbSet<Nationality> Nationalities { get; set; }
+    public DbSet<Serie> Series { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
