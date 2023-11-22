@@ -95,6 +95,7 @@ namespace BookTrackingApi.Services
                 if (existingSeries != null)
                 {
                     existingSeries.Name = updateSeries.Name;
+                    existingSeries.IsFinished = updateSeries.IsFinished;
                     await _dbContext.SaveChangesAsync();
 
                     return new MainResponse { Message = "Series updated successfully" };

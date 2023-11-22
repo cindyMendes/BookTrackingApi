@@ -32,7 +32,7 @@ namespace BookTrackingApi.Controllers
             }
         }
 
-        [HttpGet("GetNationalityById")]
+        [HttpGet("GetNationalityById/{nationalityId}")]
         public async Task<IActionResult> GetNationalityById(int nationalityId)
         {
             try

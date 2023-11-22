@@ -32,7 +32,7 @@ namespace BookTrackingApi.Controllers
             }
         }
 
-        [HttpGet("GetCategoryById")]
+        [HttpGet("GetCategoryById/{categoryId}")]
         public async Task<IActionResult> GetCategoryById(int categoryId)
         {
             try
