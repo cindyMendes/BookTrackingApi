@@ -11,6 +11,7 @@ builder.Services.AddDbContext<BookDbContext>(options => options.UseSqlServer(con
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<INationalityService, NationalityService>();
 builder.Services.AddScoped<ISeriesService, SeriesService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 
 
 
