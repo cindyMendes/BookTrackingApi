@@ -111,30 +111,6 @@ namespace BookTrackingApi.Services
             }
         }
 
-        //public async Task<MainResponse> DeleteSeries(int seriesId)
-        //{
-        //    try
-        //    {
-        //        var existingSeries = await _dbContext.Series.Where(s => s.Id == seriesId).FirstOrDefaultAsync();
-
-        //        if (existingSeries != null)
-        //        {
-        //            _dbContext.Remove(existingSeries);
-        //            await _dbContext.SaveChangesAsync();
-
-        //            return new MainResponse { Message = "Series deleted successfully" };
-        //        }
-        //        else
-        //        {
-        //            return new MainResponse { IsSuccess = false, Message = "Series not found with this Id" };
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new MainResponse { IsSuccess = false, Message = $"Error: {ex.Message}" };
-        //    }
-        //}
-
         public async Task<MainResponse> DeleteSeries(int seriesId)
         {
             try
