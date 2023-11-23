@@ -126,18 +126,28 @@ namespace BookTrackingApi.Services
         {
             try
             {
-                var existingAuthor = await _dbContext.Authors.Where(a => a.Id == authorId).FirstOrDefaultAsync();
+                // Check if the author has books associated 
+                bool isAuthorUsedInBook = _dbContext.Bibliographies.Any(b => b.AuthorId == authorId);
 
-                if (existingAuthor != null)
+                if (isAuthorUsedInBook)
                 {
-                    _dbContext.Remove(existingAuthor);
-                    await _dbContext.SaveChangesAsync();
-
-                    return new MainResponse { Message = "Author deleted successfully" };
+                    return new MainResponse { IsSuccess = false, Message = "Author cannot be deleted. (There is a book associated with this author)" };
                 }
                 else
                 {
-                    return new MainResponse { IsSuccess = false, Message = "Author not found with this Id" };
+                    var existingAuthor = await _dbContext.Authors.Where(a => a.Id == authorId).FirstOrDefaultAsync();
+
+                    if (existingAuthor != null)
+                    {
+                        _dbContext.Remove(existingAuthor);
+                        await _dbContext.SaveChangesAsync();
+
+                        return new MainResponse { Message = "Author deleted successfully" };
+                    }
+                    else
+                    {
+                        return new MainResponse { IsSuccess = false, Message = "Author not found with this Id" };
+                    }
                 }
             }
             catch (Exception ex)
