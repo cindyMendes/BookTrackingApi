@@ -115,18 +115,28 @@ namespace BookTrackingApi.Services
         {
             try
             {
-                var existingCategory = await _dbContext.Categories.Where(c => c.Id == categoryId).FirstOrDefaultAsync();
+                // Check if the category has books associated 
+                bool isCategoryUsedInBook = _dbContext.BooksCategories.Any(c => c.CategoryId == categoryId);
 
-                if (existingCategory != null)
+                if (isCategoryUsedInBook)
                 {
-                    _dbContext.Remove(existingCategory);
-                    await _dbContext.SaveChangesAsync();
-
-                    return new MainResponse { Message = "Category deleted successfully" };
+                    return new MainResponse { IsSuccess = false, Message = "Category cannot be deleted. (There is a book associated with this category)" };
                 }
                 else
                 {
-                    return new MainResponse { IsSuccess = false, Message = "Category not found with this Id" };
+                    var existingCategory = await _dbContext.Categories.Where(c => c.Id == categoryId).FirstOrDefaultAsync();
+
+                    if (existingCategory != null)
+                    {
+                        _dbContext.Remove(existingCategory);
+                        await _dbContext.SaveChangesAsync();
+
+                        return new MainResponse { Message = "Category deleted successfully" };
+                    }
+                    else
+                    {
+                        return new MainResponse { IsSuccess = false, Message = "Category not found with this Id" };
+                    }
                 }
             }
             catch (Exception ex)
