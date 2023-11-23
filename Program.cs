@@ -14,6 +14,7 @@ builder.Services.AddScoped<ISeriesService, SeriesService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBibliographyService, BibliographyService>();
+builder.Services.AddScoped<IBookCategoryService, BookCategoryService>();
 
 
 
